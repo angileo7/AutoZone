@@ -3,6 +3,7 @@ import Styled from "styled-components";
 import ShoppingCart from "./ShoppingCart";
 import ProductsWrapper from "./ProductsWrapper";
 import Sorter from "./Sorter"
+import _ from 'lodash';
 
 const Wrapper = Styled.div`
     justify-content: center;
@@ -28,7 +29,7 @@ let ProducList = [
   { id: 3, name: "Mapache toy", amount: 2000, Quantity: 10  }
 ];
 
-function AutoZoneWrapper() {
+const AutoZoneWrapper = () => {
   let [CartList, setCartList] = useState([]);
 
   const getProductById = id => {
@@ -48,11 +49,12 @@ function AutoZoneWrapper() {
     }else{
       CartList.push({id:item.id, quantity: 1, image: item.image, amount: item.amount})
     }
-    window.localStorage.setItem('CartList',JSON.stringify(CartList))
+    
+    window.localStorage.setItem('CartList',JSON.stringify(_.sortBy(CartList, 'amount')))
   }
 
   const sortCart = () => { 
-    CartList.reverse()  
+    window.localStorage.setItem('CartList',JSON.stringify(CartList.reverse()))
   }
   return (
     <>
@@ -60,7 +62,7 @@ function AutoZoneWrapper() {
       <Container>
         Shopping Cart
         <hr />
-        <Sorter field={'Price'} orderBy={'↑↓'}/>
+        <Sorter field={'Price'} orderBy={'↑↓'} onClick={sortCart}/>
         {CartList.map((element, index) => (
           <ShoppingCart key={index} {...element} />
         ))}

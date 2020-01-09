@@ -6,7 +6,7 @@ import { TextAutoZone, Container } from "./style/style";
 function App() {
   return (
     <div>
-      <TextAutoZone>Homie</TextAutoZone>
+      <TextAutoZone>Autozone shopping cart</TextAutoZone>
       <Router>
         <Container>
           <Switch>
