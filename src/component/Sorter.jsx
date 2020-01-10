@@ -6,7 +6,7 @@ function Sorter({ orderBy, field, onClick }) {
     <>
       <span>Sort by: {field}</span><strong></strong>
         
-        <span onClick={()=>onClick()}><strong>Order{orderBy}</strong></span>
+        <button onClick={()=>onClick()}><strong>Order{orderBy}</strong></button>
     </>
   );
 }

@@ -5,6 +5,7 @@ import ProductsWrapper from "./ProductsWrapper";
 import Sorter from "./Sorter"
 import _ from 'lodash';
 import ProducList from  '../Utils/Products'
+import Search from './Search'
 
 const Wrapper = Styled.div`
     justify-content: center;
@@ -35,9 +36,15 @@ const AutoZoneWrapper = () => {
     setCartList(JSON.parse(window.localStorage.getItem('CartList')) || [])
   }, [CartList]);
 
+  const filter = (text) =>{
+    let filteredProducts = ProducList.filter(function (item) {
+        return 0 === item.name.indexOf(text);
+    });
+  }
+
   const addToCart = (item) => { 
     var productFound = CartList.find(function(element) {
-      return element.id == item.id;
+      return element.id === item.id;
     });
     if(productFound){
       productFound.quantity = productFound.quantity + 1;
@@ -63,47 +70,15 @@ const AutoZoneWrapper = () => {
         ))}
       </Container>
       <Container>
+        
+    <Search onFilter={filter}/>
         List of products
         <hr />
-        {ProducList.map((element, index) => (
+          {ProducList.map((element, index) => (
           <ProductsWrapper key={index} product={{...getProductById(element.id)}} onClick={addToCart}/>
         ))}
       </Container>
     </Wrapper>
-    <Search/>
-    </>
-  );
-}
-
-const Search = ( { id = 0 } ) => {
-  const [inputId, setinputId] = useState(id);
-  const [depa, setDepa] = useState({});
-
-  const findHome = value => {
-    var depaFound = ProducList.find(function(element) {
-      return element.id == value;
-    });
-    console.log(depaFound)
-    setDepa(depaFound)
-    console.log(depa)
-  };
-
-  return (
-    <>
-      <div>
-        <strong>Id:</strong>
-        <input
-          type="number"
-          value={inputId}
-          onChange = { e => {setinputId(e.target.value)}}
-        />
-      </div>
-      <input
-          type="button"
-          onClick={event => findHome(inputId)}
-          value="Ver Depa"
-        />
-      { depa === Object ? <div>True</div> : <div>False</div> }
     </>
   );
 }

@@ -7,7 +7,7 @@ const Productsrapper = ({ onClick, product}) => {
       <div>{`Product name: ${product.name}`}</div>
       <div>{`Product amount: ${product.amount}`}</div>
       <div>{`Product name: ${product.name}`}</div>
-      <span onClick={()=>onClick(product)}><strong>add to cart</strong></span>
+      <button onClick={()=>onClick(product)}><strong>add to cart</strong></button>
     </GeneralContainer>
   );
 }
